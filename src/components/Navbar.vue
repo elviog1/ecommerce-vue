@@ -5,9 +5,15 @@
       <!-- MENUES -->
       <nav class="gap-3 sm:block hidden">
         <div class="flex gap-3">
-          <RouterLink to="/">Inicio</RouterLink>
-          <RouterLink to="/products">Productos</RouterLink>
-          <RouterLink to="/about">Sobre mi</RouterLink>
+          <RouterLink class="hover:text-orange-700 duration-300" to="/"
+            >Inicio</RouterLink
+          >
+          <RouterLink class="hover:text-orange-700 duration-300" to="/products"
+            >Productos</RouterLink
+          >
+          <RouterLink class="hover:text-orange-700 duration-300" to="/about"
+            >Sobre mi</RouterLink
+          >
           <span>CAR</span>
         </div>
       </nav>
@@ -51,3 +57,4 @@ const closeMenu = () => {
 </script>
 
 <style scoped></style>
+Y .... SI,

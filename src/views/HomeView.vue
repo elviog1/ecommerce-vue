@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LastProduct from "../components/LastProducts.vue";
-import Footer from "../components/Footer.vue";
+import Welcome from "../components/Welcome.vue";
 </script>
 
 <template>
@@ -13,6 +13,7 @@ import Footer from "../components/Footer.vue";
         <h2 class="text-md">Cositas hechas con pasion y amor.</h2>
       </div>
     </div>
+    <Welcome />
     <LastProduct />
   </div>
 </template>
@@ -24,7 +25,7 @@ import Footer from "../components/Footer.vue";
   background-size: cover;
 }
 .bg-color-1 {
-  background: linear-gradient(rgb(186 230 253), rgb(14 165 233));
+  background: linear-gradient(rgb(125 211 252), rgb(14 165 233));
 }
 .bg-color-2 {
   background: linear-gradient(rgb(14 165 233), rgb(3 105 161));
