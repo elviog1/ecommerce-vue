@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import LastProduct from "../components/LastProducts.vue";
 import Welcome from "../components/Welcome.vue";
+
 </script>
 
 <template>
@@ -8,9 +9,9 @@ import Welcome from "../components/Welcome.vue";
     <div
       class="w-full banner h-96 object-cover flex justify-center items-center"
     >
-      <div class="flex flex-col gap-4 items-center">
-        <h1 class="text-3xl">Pequeña aldea</h1>
-        <h2 class="text-md">Cositas hechas con pasion y amor.</h2>
+      <div class="flex flex-col gap-4 items-center text-color5">
+        <h1 class="text-4xl font-bold ">Pequeña aldea</h1>
+        <h2 class="text-xl">Cositas hechas con pasion y amor.</h2>
       </div>
     </div>
     <Welcome />
@@ -25,9 +26,7 @@ import Welcome from "../components/Welcome.vue";
   background-size: cover;
 }
 .bg-color-1 {
-  background: linear-gradient(rgb(125 211 252), rgb(14 165 233));
+  background: linear-gradient(#ffffdd, #c0efd2, #384252);
 }
-.bg-color-2 {
-  background: linear-gradient(rgb(14 165 233), rgb(3 105 161));
-}
+
 </style>

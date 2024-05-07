@@ -1,17 +1,20 @@
 <template>
-  <header class="bg-sky-300 flex justify-center sticky top-0">
-    <div class="flex p-3 container justify-between">
-      <h1>LOGO</h1>
+  <header class="bg-color3 flex justify-center z-20 sticky top-0 text-xl font-bold">
+    <div class="flex p-3 container justify-between items-center">
+      <RouterLink to="/"
+        ><img src="../assets/logo.png" alt="logo" class="w-16"/></RouterLink
+      >
+      
       <!-- MENUES -->
       <nav class="gap-3 sm:block hidden">
-        <div class="flex gap-3">
-          <RouterLink class="hover:text-orange-700 duration-300" to="/"
+        <div class="flex gap-4">
+          <RouterLink class="text-color5 duration-300 hover:text-color1" to="/"
             >Inicio</RouterLink
           >
-          <RouterLink class="hover:text-orange-700 duration-300" to="/products"
+          <RouterLink class="text-color5 duration-300 hover:text-color1" to="/products"
             >Productos</RouterLink
           >
-          <RouterLink class="hover:text-orange-700 duration-300" to="/about"
+          <RouterLink class="text-color5 duration-300 hover:text-color1" to="/about"
             >Sobre mi</RouterLink
           >
           <span>CAR</span>
@@ -56,5 +59,6 @@ const closeMenu = () => {
 };
 </script>
 
-<style scoped></style>
-Y .... SI,
+<style scoped>
+</style>
+
