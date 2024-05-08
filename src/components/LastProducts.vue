@@ -5,16 +5,18 @@
       <img src="../assets/lana.png" alt="logo" class="w-24"/>
     </div>
     <div class="flex justify-center">
-      <div class="flex gap-4 flex-wrap justify-center">
+      <div class="flex gap-4 flex-wrap justify-center" data-aos="fade-left" data-aos-duration="2000">
         <CardLastProduct v-for="prod in lastProducts" :prod="prod" :key="prod" />
       </div>
     </div>
   </div>
 </template>
 
+
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import CardLastProduct from "../components/CardLastProduct.vue";
+
 const allProducts = ref([])
 const lastProducts = ref([])
 
@@ -37,6 +39,8 @@ const fetchProducts = async ()=>{
 onMounted(()=>{
   fetchProducts()
 })
+
+
 </script>
 
 <style scoped></style>

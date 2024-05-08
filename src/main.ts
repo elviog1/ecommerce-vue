@@ -1,4 +1,12 @@
 import "./index.css";
+// Animate css
+import 'animate.css';
+
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+
+//sweetalert2
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 import { createApp } from "vue";
 import { createPinia } from "pinia";
@@ -18,4 +26,5 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 app.use(vuetify)
+app.use(VueSweetalert2)
 app.mount("#app");

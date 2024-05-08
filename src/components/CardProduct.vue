@@ -3,10 +3,14 @@
     <RouterLink :to="`/products/${propProduct.prod?._id}`">
       <img src="../assets/lana.png" />
       <div class="p-4">
-        <p class="text-center">{{ propProduct.prod?.title }}</p>
+        <p>{{ propProduct.prod?.title }}</p>
         <p class="truncate text-sm">
           {{propProduct.prod?.description}}
         </p>
+        <div class="flex justify-between" >
+          <span>$1000</span>
+          <span>Cant: {{ propProduct.prod?.maxQuantity }}</span>
+        </div>
       </div>
     </RouterLink>
   </div>

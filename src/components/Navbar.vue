@@ -17,7 +17,7 @@
           <RouterLink class="text-color5 duration-300 hover:text-color1" to="/about"
             >Sobre mi</RouterLink
           >
-          <span>CAR</span>
+          <RouterLink to="/cart">🛒</RouterLink>
         </div>
       </nav>
       <!-- BURGER -->

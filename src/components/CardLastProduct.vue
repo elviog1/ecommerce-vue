@@ -1,5 +1,5 @@
 <template>
-  <div class="w-72 h-48 card-product overflow-hidden z-10">
+  <div class="w-72 h-48 card-product overflow-hidden z-10 ">
     <RouterLink :to="`/products/${product.prod?._id}`">
     
       <img

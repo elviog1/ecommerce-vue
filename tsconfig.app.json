@@ -5,7 +5,9 @@
   "compilerOptions": {
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-
+    "types": [
+      "vue-sweetalert2"
+    ],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

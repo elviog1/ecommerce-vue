@@ -13,6 +13,7 @@ interface Product {
 const allProducts = ref<Product[]>([]);
 const filteredProducts = ref<Product[]>([]);
 const category = ref('Todos');
+const search = ref('')
 
 const fetchProducts = async () => {
   try {
@@ -29,6 +30,13 @@ const fetchProducts = async () => {
 watch(category, (newValue, oldValue) => {
   filteredProducts.value = allProducts.value.filter(product => {
     return newValue === 'Todos' || product.category === newValue;
+  });
+});
+
+watch(search, (newValue, oldValue) => {
+  filteredProducts.value = allProducts.value.filter(product => {
+    const searchTerm = newValue.toLowerCase();
+    return product.title.toLowerCase().includes(searchTerm) || product.description.toLowerCase().includes(searchTerm);
   });
 });
 
@@ -49,6 +57,7 @@ onMounted(async () => {
           :items="[
             'Todos',
             'Adornos',
+            'Bufandas',
             'Gorros',
             'Guantes',
             'Individuales',
@@ -56,10 +65,13 @@ onMounted(async () => {
             'Medias',
           ]"
         ></v-select>
-        <v-text-field label="Buscador"></v-text-field>
+        <v-text-field v-model="search" label="Buscar por titulo o descripcion"></v-text-field>
       </div>
       <div class="flex gap-4 justify-center flex-wrap py-4">
-        <CardProduct v-for="prod in filteredProducts" :prod="prod" :key="prod?._id" />
+        <CardProduct data-aos="fade-left"
+     data-aos-anchor="#example-anchor"
+     data-aos-offset="500"
+     data-aos-duration="500" v-for="prod in filteredProducts" :prod="prod" :key="prod?._id" />
       </div>
     </div>
   </main>
