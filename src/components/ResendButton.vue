@@ -10,42 +10,46 @@
 </template>
 
 <script setup lang="ts">
-import Swal from 'sweetalert2';
-import { defineProps } from 'vue';
+import Swal from "sweetalert2";
+import { defineProps } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const product = defineProps({
-  prod: Object
+  prod: Object,
 });
-
+const emailFrom = import.meta.env.VITE_EMAIL_FROM;
+console.log(emailFrom);
 const showAlert = async () => {
   const { value: email } = await Swal.fire({
     title: "Ingrese su correo electronico",
     input: "email",
-    inputPlaceholder: "ej: pequeñaaldea@gmail.com"
+    inputPlaceholder: "ej: pequeñaaldea@gmail.com",
   });
 
   if (email) {
     try {
-      const response = await fetch('http://localhost:4000/api/mails', {
-        method: 'POST',
+      const response = await fetch("http://localhost:4000/api/mails", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          to: [email],
+          to: [emailFrom, email],
           subject: "Nueva Compra",
-          content: product.prod
-        })
+          content: product.prod,
+        }),
       });
-
       if (response.ok) {
         Swal.fire(`Su pedido fue enviado. Muchas gracias.`);
+        localStorage.removeItem("product");
+        router.push("/products");
       } else {
-        throw new Error('Error al enviar el pedido.');
+        throw new Error("Error al enviar el pedido.");
       }
     } catch (error) {
       console.error(error);
-      Swal.fire('¡Oops!', 'Hubo un error al enviar el pedido.', 'error');
+      Swal.fire("¡Oops!", "Hubo un error al enviar el pedido.", "error");
     }
   }
 };
