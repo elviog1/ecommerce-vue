@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import CardProduct from '@/components/CardProduct.vue';
-import { onMounted, ref, watch } from 'vue';
+import CardProduct from "@/components/CardProduct.vue";
+import { onMounted, ref, watch } from "vue";
 
 interface Product {
   _id: string;
@@ -12,31 +12,36 @@ interface Product {
 
 const allProducts = ref<Product[]>([]);
 const filteredProducts = ref<Product[]>([]);
-const category = ref('Todos');
-const search = ref('')
+const category = ref("Todos");
+const search = ref("");
+const loadingProducts = ref(true);
 
 const fetchProducts = async () => {
   try {
-    const response = await fetch('http://localhost:4000/api/product');
+    const response = await fetch(`${import.meta.env.VITE_BACK_URL}/product`);
     if (!response.ok) {
       throw new Error("Error al obtener los productos");
     }
     allProducts.value = await response.json();
+    loadingProducts.value = false;
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 watch(category, (newValue, oldValue) => {
-  filteredProducts.value = allProducts.value.filter(product => {
-    return newValue === 'Todos' || product.category === newValue;
+  filteredProducts.value = allProducts.value.filter((product) => {
+    return newValue === "Todos" || product.category === newValue;
   });
 });
 
 watch(search, (newValue, oldValue) => {
-  filteredProducts.value = allProducts.value.filter(product => {
+  filteredProducts.value = allProducts.value.filter((product) => {
     const searchTerm = newValue.toLowerCase();
-    return product.title.toLowerCase().includes(searchTerm) || product.description.toLowerCase().includes(searchTerm);
+    return (
+      product.title.toLowerCase().includes(searchTerm) ||
+      product.description.toLowerCase().includes(searchTerm)
+    );
   });
 });
 
@@ -47,7 +52,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="bg-color-1 flex justify-center min-h-screen text-xl font-bold text-color5">
+  <main
+    class="bg-color-1 flex justify-center min-h-screen text-xl font-bold text-color5"
+  >
     <div class="container">
       <p class="text-center text-3xl">Productos</p>
       <div class="sm:flex-row flex gap-4 flex-col">
@@ -65,13 +72,24 @@ onMounted(async () => {
             'Medias',
           ]"
         ></v-select>
-        <v-text-field v-model="search" label="Buscar por titulo o descripcion"></v-text-field>
+        <v-text-field
+          v-model="search"
+          label="Buscar por titulo o descripcion"
+        ></v-text-field>
       </div>
       <div class="flex gap-4 justify-center flex-wrap py-4">
-        <CardProduct data-aos="fade-left"
-     data-aos-anchor="#example-anchor"
-     data-aos-offset="500"
-     data-aos-duration="500" v-for="prod in filteredProducts" :prod="prod" :key="prod?._id" />
+        <p v-if="loadingProducts" data-aos="fade-left" data-aos-duration="2000">
+          Cargando productos...
+        </p>
+        <CardProduct
+          data-aos="fade-left"
+          data-aos-anchor="#example-anchor"
+          data-aos-offset="500"
+          data-aos-duration="500"
+          v-for="prod in filteredProducts"
+          :prod="prod"
+          :key="prod?._id"
+        />
       </div>
     </div>
   </main>

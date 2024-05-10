@@ -2,10 +2,10 @@
   <div
     class="bg-color-1 flex justify-center min-h-screen text-xl font-bold text-color5"
   >
-  <div class="flex flex-col gap-6 justify-center items-center">
-    <p class="text-center text-3xl">
-      {{ product.title }}
-    </p>
+    <div class="flex flex-col gap-6 justify-center items-center">
+      <p class="text-center text-3xl">
+        {{ product.title }}
+      </p>
       <div class="flex gap-4 flex-wrap justify-center">
         <img
           data-aos="zoom-out-right"
@@ -25,8 +25,7 @@
               :items="product.colors"
             ></v-select>
           </div>
-          <div>
-          </div>
+          <div></div>
           <p v-if="messageError" class="text-center text-red-500">
             {{ messageError }}
           </p>
@@ -46,16 +45,16 @@ import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 const productString = localStorage.getItem("product");
 const productStorage = productString ? JSON.parse(productString) : [];
-console.log(productStorage)
+console.log(productStorage);
 const router = useRouter();
 interface Product {
   title: string;
   description: string;
   picture: string;
   colors: string[];
-  price:number;
-  quantity:number;
-  maxQuantity:number;
+  price: number;
+  quantity: number;
+  maxQuantity: number;
 }
 const route = useRoute();
 const product = ref<Product>({
@@ -63,16 +62,18 @@ const product = ref<Product>({
   description: "",
   picture: "",
   colors: [],
-  price:0,
-  quantity:1,
-  maxQuantity:0
+  price: 0,
+  quantity: 1,
+  maxQuantity: 0,
 });
 const id = route.params.id;
 const colorSelected = ref("");
 const messageError = ref("");
 const fetchProductById = async () => {
   try {
-    const response = await fetch(`http://localhost:4000/api/product/${id}`);
+    const response = await fetch(
+      `${import.meta.env.VITE_BACK_URL}/product/${id}`
+    );
     if (!response.ok) {
       throw new Error("No se encontro el producto");
     }
@@ -90,7 +91,7 @@ const submit = () => {
   } else {
     messageError.value = "";
     product.value.colors = [colorSelected.value];
-    productStorage.push(product.value)
+    productStorage.push(product.value);
     localStorage.setItem("product", JSON.stringify(productStorage));
     console.log(product.value);
     router.push("/products");

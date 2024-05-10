@@ -29,7 +29,7 @@ const showAlert = async () => {
 
   if (email) {
     try {
-      const response = await fetch("http://localhost:4000/api/mails", {
+      const response = await fetch(`${import.meta.env.VITE_BACK_URL}/mails`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
