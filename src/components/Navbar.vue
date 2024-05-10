@@ -9,34 +9,52 @@
 
       <!-- MENUES -->
       <nav class="gap-3 sm:block hidden">
-        <div class="flex gap-4">
-          <RouterLink class="text-color5 duration-300 hover:text-color1" to="/"
+        <div class="flex gap-4 items-center">
+          <RouterLink
+            class="text-color5 duration-300 hover:bg-color2 hover:text-color1 rounded h-9 flex items-center px-1"
+            to="/"
             >Inicio</RouterLink
           >
           <RouterLink
-            class="text-color5 duration-300 hover:text-color1"
+            class="text-color5 duration-300 hover:bg-color2 hover:text-color1 rounded h-9 flex items-center px-1"
             to="/products"
             >Productos</RouterLink
           >
           <RouterLink
-            class="text-color5 duration-300 hover:text-color1"
+            class="text-color5 duration-300 hover:bg-color2 hover:text-color1 rounded h-9 flex items-center px-1"
             to="/about"
             >Sobre mi</RouterLink
           >
-          <RouterLink to="/cart">🛒</RouterLink>
+          <RouterLink
+            class="hover:bg-color2 rounded w-9 h-9 flex items-center justify-center relative"
+            to="/cart"
+          >
+            <span
+              v-if="productStorage"
+              class="absolute top-0 right-0 text-xs"
+              >{{ productStorage.length }}</span
+            >
+
+            🛒</RouterLink
+          >
         </div>
       </nav>
       <!-- BURGER -->
       <div class="sm:hidden block">
-        <div class="flex gap-3">
+        <div class="flex gap-3 items-center">
           <img
             src="../assets/hamburger.svg"
-            class="w-8 cursor-pointer hover:bg-color2 rounded"
+            class="w-9 cursor-pointer hover:bg-color2 rounded"
             @click="openMenu"
             alt="Logo hamburger"
           />
-          <RouterLink class="hover:bg-color2 rounded px-1" to="/cart"
-            >🛒</RouterLink
+          <RouterLink
+            class="hover:bg-color2 rounded w-9 h-9 flex items-center justify-center relative"
+            to="/cart"
+          >
+            <span class="absolute top-0 right-0 text-xs">2</span>
+
+            🛒</RouterLink
           >
         </div>
       </div>
@@ -59,8 +77,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { RouterLink, useRouter } from "vue-router";
+import { RouterLink } from "vue-router";
 const showMenu = ref(false);
+const productString = localStorage.getItem("product");
+const productStorage = ref(productString ? JSON.parse(productString) : []);
 const openMenu = () => {
   showMenu.value = !showMenu.value; // Cambiar el valor de showMenu
 };
