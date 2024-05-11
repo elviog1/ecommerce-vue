@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import ResendButton from "../components/ResendButton.vue";
+import { useCartStore } from "@/stores/counter";
 const productString = localStorage.getItem("product");
 const productStorage = ref(productString ? JSON.parse(productString) : []);
 let totalPrice = ref(0); // Inicializa el total en 0
@@ -34,10 +35,12 @@ const calculateTotalPrice = () => {
   }
 };
 
+const cartStore = useCartStore();
 const deleteProduct = (index: number) => {
   productStorage.value.splice(index, 1);
   updateLocalStorage();
   calculateTotalPrice();
+  cartStore.removeFromCart(index);
 };
 // Calcula el total inicial al cargar la página
 calculateTotalPrice();

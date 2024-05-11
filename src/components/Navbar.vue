@@ -32,7 +32,7 @@
             <span
               v-if="productStorage"
               class="absolute top-0 right-0 text-xs"
-              >{{ productStorage.length }}</span
+              >{{ productCount }}</span
             >
 
             🛒</RouterLink
@@ -52,7 +52,11 @@
             class="hover:bg-color2 rounded w-9 h-9 flex items-center justify-center relative"
             to="/cart"
           >
-            <span class="absolute top-0 right-0 text-xs">2</span>
+            <span
+              v-if="productStorage"
+              class="absolute top-0 right-0 text-xs"
+              >{{ productCount }}</span
+            >
 
             🛒</RouterLink
           >
@@ -76,7 +80,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { useCartStore } from "@/stores/counter";
+import { computed, onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 const showMenu = ref(false);
 const productString = localStorage.getItem("product");
@@ -87,6 +92,13 @@ const openMenu = () => {
 const closeMenu = () => {
   showMenu.value = false;
 };
+
+const cartStore = useCartStore();
+
+const productCount = computed(() => cartStore.getCartCount());
+onMounted(() => {
+  cartStore.loadCart();
+});
 </script>
 
 <style scoped></style>

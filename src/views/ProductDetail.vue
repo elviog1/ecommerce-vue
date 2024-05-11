@@ -1,8 +1,15 @@
 <template>
   <div
-    class="bg-color-1 flex justify-center min-h-screen text-xl font-bold text-color5"
+    class="bg-color-1 flex items-center justify-center min-h-screen text-xl font-bold text-color5"
   >
-    <div class="flex flex-col gap-6 justify-center items-center">
+    <div
+      v-if="loadingProduct"
+      className="animate-spin  rounded-full border-t-4 border-blue-500 border-solid h-12 w-12"
+    ></div>
+    <div
+      v-if="!loadingProduct"
+      class="flex flex-col gap-6 justify-center items-center"
+    >
       <p class="text-center text-3xl">
         {{ product.title }}
       </p>
@@ -12,6 +19,7 @@
           src="../assets/logo.png"
           class="object-cover"
         />
+
         <div class="flex flex-col gap-6 shadow-2xl p-4 rounded">
           <p class="max-w-96">
             {{ product.description }}
@@ -41,11 +49,12 @@
 </template>
 
 <script setup lang="ts">
+import { useCartStore } from "@/stores/counter";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 const productString = localStorage.getItem("product");
 const productStorage = productString ? JSON.parse(productString) : [];
-console.log(productStorage);
+const loadingProduct = ref(true);
 const router = useRouter();
 interface Product {
   title: string;
@@ -80,19 +89,22 @@ const fetchProductById = async () => {
     const data = await response.json();
     product.value = data;
     console.log(product.value);
+    loadingProduct.value = false;
   } catch (error) {
     console.log(error);
   }
 };
 
+const cartStore = useCartStore();
 const submit = () => {
   if (!colorSelected.value) {
     messageError.value = "Seleccione un color";
   } else {
     messageError.value = "";
     product.value.colors = [colorSelected.value];
-    productStorage.push(product.value);
-    localStorage.setItem("product", JSON.stringify(productStorage));
+    cartStore.addToCart(product.value);
+    // productStorage.push(product.value);
+    // localStorage.setItem("product", JSON.stringify(productStorage));
     console.log(product.value);
     router.push("/products");
   }

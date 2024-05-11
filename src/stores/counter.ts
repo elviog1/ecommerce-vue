@@ -1,12 +1,44 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+// cart.ts
+import { defineStore } from "pinia";
 
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
+export const useCartStore = defineStore("product", {
+  state: () => ({
+    products: [] as Product[],
+  }),
+  actions: {
+    // Agregar un producto al carrito
+    addToCart(product: Product) {
+      this.products.push(product);
+      this.persistCart();
+    },
+    // Obtener el número de productos en el carrito
+    getCartCount(): number {
+      return this.products.length;
+    },
+    // Guardar el carrito en localStorage
+    persistCart() {
+      localStorage.setItem("product", JSON.stringify(this.products));
+    },
+    // Cargar el carrito desde localStorage
+    loadCart() {
+      const cart = localStorage.getItem("product");
+      if (cart) {
+        this.products = JSON.parse(cart);
+      }
+    },
+    removeFromCart(index: number) {
+      this.products.splice(index, 1);
+      this.persistCart();
+    },
+  },
+});
 
-  return { count, doubleCount, increment }
-})
+interface Product {
+  title: string;
+  description: string;
+  picture: string;
+  colors: string[];
+  price: number;
+  quantity: number;
+  maxQuantity: number;
+}
