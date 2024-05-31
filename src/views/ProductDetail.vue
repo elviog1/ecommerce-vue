@@ -16,7 +16,7 @@
       <div class="flex gap-4 flex-wrap justify-center">
         <img
           data-aos="zoom-out-right"
-          src="../assets/logo.png"
+          :src="product.picture"
           class="object-cover"
         />
 
